@@ -1,1 +1,3 @@
-# WarioWare-HW5
+# WarioWare - Corona Edition
+# Vincent Zagala
+# Aaron Li
