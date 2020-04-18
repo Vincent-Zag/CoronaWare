@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.0, 2020-04-16T15:02:25. -->
+<!-- Written by QtCreator 4.11.0, 2020-04-17T19:38:06. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -285,8 +285,9 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/vincent/Documents/CSCI3010/HW5/WarioWare-CoronaEdition/WarioWare-CoronaEdition.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/vincent/Documents/CSCI3010/HW5/WarioWare-CoronaEdition/WarioWare-CoronaEdition.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">WarioWare-CoronaEdition2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/vincent/Documents/CSCI3010/HW5/WarioWare/WarioWare-CoronaEdition.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/home/vincent/Documents/CSCI3010/HW5/WarioWare/WarioWare-CoronaEdition.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
