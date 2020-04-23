@@ -60,6 +60,20 @@
      <string/>
     </property>
    </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>30</y>
+      <width>591</width>
+      <height>481</height>
+     </rect>
+    </property>
+   </widget>
+   <zorder>graphicsView</zorder>
+   <zorder>title_image</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>wario_gif</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
