@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/img/title_image.png</file>
+        <file>assets/img/cartoon village.jpg</file>
+        <file>assets/img/corona virus.png</file>
+        <file>assets/img/cryguy.jpg</file>
+        <file>assets/img/five_timer.png</file>
+        <file>assets/img/four_timer.png</file>
+        <file>assets/img/handwashing.gif</file>
+        <file>assets/img/one_timer.png</file>
+        <file>assets/img/patience_background.jpg</file>
+        <file>assets/img/sick village.png</file>
+        <file>assets/img/three_timer.png</file>
+        <file>assets/img/toilet paper.png</file>
+        <file>assets/img/two_timer.png</file>
+        <file>assets/img/wario_dancing.gif</file>
+        <file>assets/img/zero_timer.png</file>
+        <file>assets/sound/play_intro.wav</file>
+        <file>assets/sound/timer.wav</file>
+        <file>assets/sound/WarioWare, Inc. Super Smash Bros. Ultimate.mp3</file>
+        <file>assets/sound/Corona/scream.wav</file>
+        <file>assets/sound/Correct/cheering.wav</file>
+        <file>assets/sound/Correct/correct.wav</file>
+        <file>assets/sound/Correct/win1.wav</file>
+        <file>assets/sound/Count minigame/Death Note Heart Attack Sound Effect.mp3</file>
+        <file>assets/sound/Incorrect/booing.wav</file>
+        <file>assets/sound/Incorrect/incorrect.wav</file>
+        <file>assets/sound/Incorrect/lose.wav</file>
+        <file>assets/sound/Kill minigame/pistol.wav</file>
+        <file>assets/sound/Patience minigame/Bird Chirping Sound Effect.mp3</file>
+        <file>assets/sound/Patience minigame/Nichijou - GOD IS DEAD.mp3</file>
+        <file>assets/sound/wash hand minigame/water.wav</file>
+    </qresource>
+</RCC>

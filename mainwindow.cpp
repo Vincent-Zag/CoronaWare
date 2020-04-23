@@ -10,14 +10,15 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     ui->setupUi(this);
+
     this->setStyleSheet("background-color: white;");
-    QPixmap qp_title("/home/vincent/Documents/CSCI3010/HW5/WarioWare/assets/img/title_image.png");
+    QPixmap qp_title(":/assets/img/title_image.png");
     ui->title_image->setPixmap(qp_title);
-    QPixmap qp_gif("/home/vincent/Documents/CSCI3010/HW5/WarioWare/assets/img/dancing_wario.gif");
+    QPixmap qp_gif(":/assets/img/dancing_wario.gif");
     ui->wario_gif->setPixmap(qp_gif);
 
 
-    QMovie *wario_dance = new QMovie("/home/vincent/Documents/CSCI3010/HW5/WarioWare/assets/img/wario_dancing.gif");
+    QMovie *wario_dance = new QMovie(":/assets/img/wario_dancing.gif");
     ui->wario_gif->setMovie(wario_dance);
     wario_dance->start();
 
