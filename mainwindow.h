@@ -19,9 +19,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void Games();
 private slots:
     // default slot that reacts to random button being clicked
     void CoronaSelectedSlot(Corona * c);
+
+    void on_startButton_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;

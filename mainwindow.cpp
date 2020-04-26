@@ -5,6 +5,7 @@
 #include <QTimer>
 #include <QMovie>
 #include <QMediaPlayer>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -28,27 +29,21 @@ MainWindow::MainWindow(QWidget *parent)
     QPixmap qp_title(":/assets/img/title_image.png");
     QGraphicsPixmapItem *title = scene_->addPixmap( qp_title );
     title->setPos(200,0);
-    //setPixMap(qp_title)
-    //ui->title_image->setPixmap(qp_title);
-    //scene->addItem(setPixmap(qp_title));
-    QPixmap qp_gif(":/assets/img/dancing_wario.gif");
-    QGraphicsPixmapItem * wario = scene_->addPixmap( qp_gif );
-    wario->setPos(40,0);
-
 
     QMovie *wario_dance = new QMovie(":/assets/img/wario_dancing.gif");
     ui->wario_gif->setMovie(wario_dance);
     wario_dance->start();
+    ui->wario_gif->close();
 
     QMediaPlayer * sound = new QMediaPlayer();
     sound->setMedia(QUrl("qrc:/assets/sound/WarioWare, Inc. Super Smash Bros. Ultimate.mp3"));
     sound->play();
 
-    Corona * c1 = new Corona(400,400);
+    Corona * c1 = new Corona(400,100);
     scene_->addItem(c1);
 
     connect(c1, &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
-    //scene->clear();
+
 
 //    QImage *img = new QImage(":/images/grass.png");
 //        *img = img->scaled(100,100,Qt::KeepAspectRatioByExpanding);
@@ -73,3 +68,19 @@ void MainWindow::CoronaSelectedSlot(Corona * c){
     sound->play();
 }
 
+void MainWindow::Games(){
+    scene_->clear();
+    QImage *img = new QImage(":/assets/img/sick village.png");
+    *img = img->scaled(ui->graphicsView->frameSize().width(),ui->graphicsView->frameSize().height());
+    QBrush bg_brush(*img);
+    scene_ ->setBackgroundBrush(bg_brush);
+}
+
+void MainWindow::on_startButton_clicked()
+{
+    qDebug() << "Clicked!";
+    ui->startButton->close();
+    this->Games();
+
+
+}
