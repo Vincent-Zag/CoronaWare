@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    corona.cpp \
     countvirus.cpp \
     disinfect.cpp \
     gamemanagement.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
 
 
 HEADERS += \
+    corona.h \
     countvirus.h \
     disinfect.h \
     gamemanagement.h \
@@ -36,11 +38,7 @@ HEADERS += \
     wash.h
 
 FORMS += \
-    countvirus.ui \
-    disinfect.ui \
-    mainwindow.ui \
-    patience.ui \
-    wash.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
