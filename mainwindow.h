@@ -5,6 +5,8 @@
 #include <QObject>
 #include <QGraphicsItem>
 
+#include "corona.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -17,8 +19,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    // default slot that reacts to random button being clicked
+    void CoronaSelectedSlot(Corona * c);
+
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene *scene;
+    QGraphicsScene *scene_;
 };
 #endif // MAINWINDOW_H

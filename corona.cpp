@@ -21,4 +21,5 @@ Corona::Corona(int x, int y){
 }
 
 void Corona::mousePressEvent(QGraphicsSceneMouseEvent *event){
+    emit DeleteCell(this);
 }

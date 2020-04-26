@@ -25,6 +25,9 @@ public:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
+signals:
+    void DeleteCell(Corona * c);
+
 private:
     int x_;
     int y_;
