@@ -2,20 +2,19 @@
 #define TIMER_H
 
 #include <QObject>
+#include <QGraphicsPixmapItem>
 #include <QPixmap>
 
-class timer : public QObject
+class timer : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    explicit timer(QObject *parent = nullptr);
-    timer(int x, int y);
+    timer();
+    void setPos(int x, int y);
 signals:
 
 private:
-    int x_;
-    int y_;
-    QPixmap img_;
+    QPixmap timer_;
 };
 
 #endif // TIMER_H

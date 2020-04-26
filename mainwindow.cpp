@@ -56,9 +56,12 @@ qDebug() << "adding corona";
     wario_dance->start();
     ui->wario_gif->close(); //closes on start of game
     qDebug() << "test";
-    GameManagement *life = new GameManagement();
-    life->setPos(100,2);
-    managementScene_->addItem(life);
+    GameManagement *life1 = new GameManagement();
+    life1->SetLife(100,100);
+    managementScene_->addItem(life1);
+    GameManagement *life2 = new GameManagement();
+    life2->SetLife(100,100);
+    managementScene_->addItem(life2);
 
     //scene->clear(); clears scene on game start
 

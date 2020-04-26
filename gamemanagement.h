@@ -13,6 +13,8 @@
 #include <QTimer>
 #include <QMovie>
 #include <QMediaPlayer>
+#include "life.h"
+#include "timer.h"
 
 class GameManagement: public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
@@ -23,7 +25,7 @@ public:
     void ShowScore();
     void ShowTimer();
     int GetLives(){return lives_;};
-
+    void SetLife(int x, int y);
 
 private:
     int lives_;

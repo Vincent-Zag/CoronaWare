@@ -4,12 +4,10 @@ GameManagement::GameManagement()
 {
    lives_ = 2;
    score_ = 0;
-   life_.load(":/assets/img/toilet paper.png");
-   life_ = life_.scaled(100, 100);
-   setPixmap(life_);
-
 }
-
+void GameManagement::SetLife(int x, int y){
+    life *lives = new life(x,y);
+}
 //void GameManagement::DeleteLife(){
 
 //}

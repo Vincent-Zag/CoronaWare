@@ -2,9 +2,10 @@
 #define LIFE_H
 
 #include <QObject>
+#include <QGraphicsPixmapItem>
 #include <QPixmap>
 
-class life : public QObject
+class life : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
@@ -13,9 +14,7 @@ public:
 signals:
 
 private:
-    int x_;
-    int y_;
-    QPixmap img_;
+    QPixmap life_;
 };
 
 #endif // LIFE_H

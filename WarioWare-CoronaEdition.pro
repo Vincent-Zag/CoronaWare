@@ -27,7 +27,7 @@ SOURCES += \
     patience.cpp \
     wash.cpp \
     life.cpp \
-    tiemr.cpp
+    timer.cpp
 
 
 HEADERS += \
