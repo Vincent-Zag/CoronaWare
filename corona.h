@@ -18,7 +18,8 @@
 class Corona : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
-    Corona(int x, int y, QGraphicsScene * scene);
+    Corona(int x, int y);
+    QPixmap get_img(){return img_;};
 
 
 protected:
@@ -28,7 +29,6 @@ private:
     int x_;
     int y_;
     QPixmap img_;
-    QGraphicsScene * scene_;
 };
 
 

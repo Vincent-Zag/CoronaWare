@@ -11,17 +11,14 @@
 #include "corona.h"
 
 
-Corona::Corona(int x, int y, QGraphicsScene * scene){
-    this->scene_=scene;
+Corona::Corona(int x, int y){
     x_=x;
     y_=y;
-//    img_.load(":/assets/img/corona virus.png");
-//    img_ = img_.scaled(30, 30);
-    QPixmap img(":/assets/img/corona virus.png");
-    setPixmap(img);
-    setPos(x, y);
+    img_.load(":/assets/img/corona virus.png");
+    img_ = img_.scaled(100, 100);
+    setPixmap(img_);
+    setPos(x_,y_);
 }
 
 void Corona::mousePressEvent(QGraphicsSceneMouseEvent *event){
-    this->scene_->removeItem(this);
 }
