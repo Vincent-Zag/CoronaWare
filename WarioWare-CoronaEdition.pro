@@ -38,11 +38,7 @@ HEADERS += \
     wash.h
 
 FORMS += \
-    countvirus.ui \
-    disinfect.ui \
-    mainwindow.ui \
-    patience.ui \
-    wash.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

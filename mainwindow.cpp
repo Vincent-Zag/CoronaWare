@@ -35,11 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
     QGraphicsPixmapItem * wario = scene->addPixmap( qp_gif );
     wario->setPos(40,0);
 
-
-    QMovie *wario_dance = new QMovie(":/assets/img/wario_dancing.gif");
-    ui->wario_gif->setMovie(wario_dance);
-    wario_dance->start();
-
     QMediaPlayer * sound = new QMediaPlayer();
     sound->setMedia(QUrl("qrc:/assets/sound/WarioWare, Inc. Super Smash Bros. Ultimate.mp3"));
     sound->play();
@@ -47,6 +42,11 @@ MainWindow::MainWindow(QWidget *parent)
     Corona * c1 = new Corona(400,400);
     scene->addItem(c1);
 
+
+    QMovie *wario_dance = new QMovie(":/assets/img/wario_dancing.gif");
+    ui->wario_gif->setMovie(wario_dance);
+    wario_dance->start();
+    ui->wario_gif->close();
 
     //scene->clear();
 

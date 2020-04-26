@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>733</width>
-    <height>587</height>
+    <width>730</width>
+    <height>580</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,10 +66,27 @@
       <x>0</x>
       <y>0</y>
       <width>731</width>
-      <height>571</height>
+      <height>341</height>
+     </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>340</y>
+      <width>731</width>
+      <height>192</height>
      </rect>
     </property>
    </widget>
+   <zorder>graphicsView_2</zorder>
    <zorder>title_image</zorder>
    <zorder>pushButton</zorder>
    <zorder>graphicsView</zorder>
@@ -80,7 +97,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>733</width>
+     <width>730</width>
      <height>22</height>
     </rect>
    </property>
