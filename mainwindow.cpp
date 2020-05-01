@@ -69,14 +69,14 @@ MainWindow::MainWindow(QWidget *parent)
     managementScene_->addItem(time0);
     Timer *time1 = board->GetTimer(1);
     managementScene_->addItem(time1);
-//    Timer *time2 = board->GetTimer(2);
-//    managementScene_->addItem(time2);
-//    Timer *time3 = board->GetTimer(3);
-//    managementScene_->addItem(time3);
-//    Timer *time4 = board->GetTimer(4);
-//    managementScene_->addItem(time4);
-//    Timer *time5 = board->GetTimer(5);
-//    managementScene_->addItem(time5);
+    Timer *time2 = board->GetTimer(2);
+    managementScene_->addItem(time2);
+    Timer *time3 = board->GetTimer(3);
+    managementScene_->addItem(time3);
+    Timer *time4 = board->GetTimer(4);
+    managementScene_->addItem(time4);
+    Timer *time5 = board->GetTimer(5);
+    managementScene_->addItem(time5);
 
 
     //scene->clear(); clears scene on game start
