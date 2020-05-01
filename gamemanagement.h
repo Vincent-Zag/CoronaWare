@@ -24,15 +24,19 @@ public:
     void Result(bool success);
     void ShowScore();
     void ShowTimer();
-    int GetLives(){return lives_;};
     void SetLife(int x, int y);
+    int GetScore(){return score_;};
+    Life *GetLife1(){return life1_;};
+    Life *GetLife2(){return life2_;};
+    Timer *GetTimer(int time){return timer_hands_[time];};
+
 
 private:
-    int lives_;
     int score_;
     QTimer *time_;
-    QPixmap life_;
-    QPixmap time_hand_;
+    Life *life1_;
+    Life *life2_;
+    Timer *timer_hands_[6];
 };
 
 #endif // GAMEMANAGEMENT_H

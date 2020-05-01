@@ -5,12 +5,12 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 
-class timer : public QObject, public QGraphicsPixmapItem
+class Timer : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    timer();
-    void setPos(int x, int y);
+    Timer(int x, int y, int image);
+    QPixmap GetTimer(){return timer_;};
 signals:
 
 private:

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "corona.h"
 #include "gamemanagement.h"
+#include "life.h"
 #include <QTime>
 #include <QTimer>
 #include <QMovie>
@@ -46,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     QMediaPlayer * sound = new QMediaPlayer();
     sound->setMedia(QUrl("qrc:/assets/sound/WarioWare, Inc. Super Smash Bros. Ultimate.mp3"));
     sound->play();
-qDebug() << "adding corona";
+    //qDebug() << "adding corona";
     Corona * c1 = new Corona(400,400);
     scene_->addItem(c1);
 
@@ -54,23 +55,48 @@ qDebug() << "adding corona";
     QMovie *wario_dance = new QMovie(":/assets/img/wario_dancing.gif");
     ui->wario_gif->setMovie(wario_dance);
     wario_dance->start();
-    ui->wario_gif->close(); //closes on start of game
-    qDebug() << "test";
-    GameManagement *life1 = new GameManagement();
-    life1->SetLife(100,100);
+    //ui->wario_gif->close(); //closes on start of game
+    //qDebug() << "test";
+    GameManagement *board = new GameManagement();
+
+
+    Life *life1 = board->GetLife1();
     managementScene_->addItem(life1);
-    GameManagement *life2 = new GameManagement();
-    life2->SetLife(100,100);
+    Life *life2 = board->GetLife2();
     managementScene_->addItem(life2);
+
+    Timer *time0 = board->GetTimer(0);
+    managementScene_->addItem(time0);
+    Timer *time1 = board->GetTimer(1);
+    managementScene_->addItem(time1);
+//    Timer *time2 = board->GetTimer(2);
+//    managementScene_->addItem(time2);
+//    Timer *time3 = board->GetTimer(3);
+//    managementScene_->addItem(time3);
+//    Timer *time4 = board->GetTimer(4);
+//    managementScene_->addItem(time4);
+//    Timer *time5 = board->GetTimer(5);
+//    managementScene_->addItem(time5);
+
 
     //scene->clear(); clears scene on game start
 
-//    QImage *img = new QImage(":/images/grass.png");
-//        *img = img->scaled(100,100,Qt::KeepAspectRatioByExpanding);
-//        QBrush bg_brush(*img);
-//        scene ->setBackgroundBrush(bg_brush)
+    //    QImage *img = new QImage(":/images/grass.png");
+    //        *img = img->scaled(100,100,Qt::KeepAspectRatioByExpanding);
+    //        QBrush bg_brush(*img);
+    //        scene ->setBackgroundBrush(bg_brush)
 
+    QImage *img = new QImage(":/assets/img/gamemanagement_background.jpeg");
+    QBrush bg_brush(*img);
+    managementScene_ ->setBackgroundBrush(bg_brush);
 
+    //Game management Overhead Labels
+    std::string score = "Score: "+ std::to_string(board->GetScore());
+    QString qscore(score.c_str());
+    ui->score_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->time_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->life_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->score_label->setText(qscore);
 
 }
 

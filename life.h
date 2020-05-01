@@ -5,16 +5,18 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 
-class life : public QObject, public QGraphicsPixmapItem
+class Life : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    explicit life(QObject *parent = nullptr);
-    life(int x, int y);
+    Life(int x, int y);
+    int GetLives(){return lives_;};
+    QPixmap get_img(){return life_;};
 signals:
 
 private:
     QPixmap life_;
+    int lives_ = 0;
 };
 
 #endif // LIFE_H
