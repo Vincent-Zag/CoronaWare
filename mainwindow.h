@@ -16,10 +16,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+private slots:
+    void ShowCountdownTimerSlot();
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene_;
     QGraphicsScene *managementScene_;
+    int repeat_ = 5;
 };
 #endif // MAINWINDOW_H
