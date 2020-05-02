@@ -25,7 +25,9 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     patience.cpp \
-    wash.cpp
+    wash.cpp \
+    life.cpp \
+    timer.cpp
 
 
 HEADERS += \
@@ -35,7 +37,9 @@ HEADERS += \
     gamemanagement.h \
     mainwindow.h \
     patience.h \
-    wash.h
+    wash.h \
+    life.h \
+    timer.h
 
 FORMS += \
     mainwindow.ui
