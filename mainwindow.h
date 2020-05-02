@@ -26,11 +26,14 @@ private slots:
 
     void on_startButton_clicked();
 
+    void ShowCountdownTimerSlot();
+
 
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene_;
     QGraphicsScene *managementScene_;
+    int repeat_ = 5;
 };
 #endif // MAINWINDOW_H

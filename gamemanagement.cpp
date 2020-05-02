@@ -11,6 +11,8 @@ GameManagement::GameManagement()
    timer_hands_[3] = new Timer(201,40,3);
    timer_hands_[4] = new Timer(101,40,4);
    timer_hands_[5] = new Timer(1,40,5);
+
+
 }
 
 //void GameManagement::DeleteLife(){
@@ -20,8 +22,5 @@ GameManagement::GameManagement()
 
 //}
 //void GameManagement::ShowScore(){
-
-//}
-//void GameManagement::ShowTimer(){
 
 //}

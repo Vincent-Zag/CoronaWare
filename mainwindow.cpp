@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     // the QGraphicsView is the UI element that contains the
     // scene that we will actually get to draw on.
     QGraphicsView * view = ui->graphicsView;
-    qDebug() << "graphics item2 added";
     QGraphicsView * view2 = ui->graphicsView_2;
 
     // scene is a QGraphicsScene pointer field of the PlotWindow class
@@ -27,17 +26,25 @@ MainWindow::MainWindow(QWidget *parent)
     // from other functions in this class.
     scene_ = new QGraphicsScene;
     managementScene_ = new QGraphicsScene;
+
+    //setting rectangle  boudnaries for hte two scenes
     view->setSceneRect(0,0,view->frameSize().width(),view->frameSize().height());
     view->setScene(scene_);
-    qDebug() << "setting rectangle bounds";
     view2->setSceneRect(0,0,view2->frameSize().width(),view2->frameSize().height());
     view2->setScene(managementScene_);
+    //creating the game management
+    GameManagement *board = new GameManagement();
 
     this->setStyleSheet("background-color: white;");
     QPixmap qp_title(":/assets/img/title_image.png");
     QGraphicsPixmapItem *title = scene_->addPixmap( qp_title );
     title->setPos(200,0);
 
+
+// TODO LATER
+//    QPixmap qp_gif(":/assets/img/dancing_wario.gif");
+//    QGraphicsPixmapItem * wario = scene_->addPixmap( qp_gif );
+//    wario->setPos(40,0);
 
 
     QMediaPlayer * sound = new QMediaPlayer();
@@ -50,31 +57,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(c1, &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
 
+
     QMovie *wario_dance = new QMovie(":/assets/img/wario_dancing.gif");
     ui->wario_gif->setMovie(wario_dance);
     wario_dance->start();
-    //ui->wario_gif->close(); //closes on start of game
-    //qDebug() << "test";
-    GameManagement *board = new GameManagement();
 
 
-    Life *life1 = board->GetLife1();
-    managementScene_->addItem(life1);
-    Life *life2 = board->GetLife2();
-    managementScene_->addItem(life2);
-
-    Timer *time0 = board->GetTimer(0);
-    managementScene_->addItem(time0);
-    Timer *time1 = board->GetTimer(1);
-    managementScene_->addItem(time1);
-    Timer *time2 = board->GetTimer(2);
-    managementScene_->addItem(time2);
-    Timer *time3 = board->GetTimer(3);
-    managementScene_->addItem(time3);
-    Timer *time4 = board->GetTimer(4);
-    managementScene_->addItem(time4);
-    Timer *time5 = board->GetTimer(5);
-    managementScene_->addItem(time5);
+    qsrand(static_cast<unsigned>(QTime::currentTime().msec()));
+    QTimer *time_ = new QTimer(this);
+    connect(time_,&QTimer::timeout,this,&MainWindow::ShowCountdownTimerSlot);
+    time_->start(1000);
 
     qDebug() << "Done with magnagementScene";
 
@@ -92,6 +84,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->score_label->setText(qscore);
 
 }
+void MainWindow::ShowCountdownTimerSlot(){
+    GameManagement *board = new GameManagement();
+    if (repeat_ == -1){
+        repeat_ = 5;
+    }
+    Timer *time = board->GetTimer(repeat_);
+    managementScene_->addItem(time);
+    repeat_--;
+}
+
 
 MainWindow::~MainWindow()
 {
