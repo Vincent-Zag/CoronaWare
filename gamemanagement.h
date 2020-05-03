@@ -24,11 +24,12 @@ public:
     void Result(bool success);
     void ShowScore();
     void ShowTimer();
-    void SetLife(int x, int y);
+    void SetLife(int value);
     void SetScore(int value);
     int GetScore(){return score_;};
     Life *GetLife1(){return life1_;};
     Life *GetLife2(){return life2_;};
+    int GetLives(){return lives_;};
     Timer *GetTimer(int time){return timer_hands_[time];};
 
 private:
@@ -37,6 +38,7 @@ private:
     Life *life1_;
     Life *life2_;
     Timer *timer_hands_[6];
+    int lives_;
 };
 
 #endif // GAMEMANAGEMENT_H

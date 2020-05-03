@@ -1,22 +1,34 @@
 #ifndef WASH_H
 #define WASH_H
 
-#include <QMainWindow>
+#include <QObject>
+#include <QGraphicsPixmapItem>
+#include <QPixmap>
+#include <QObject>
+#include <QGraphicsItem>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+#include <iostream>
+#include <QtWidgets>
+#include <QTime>
+#include <QTimer>
+#include <QMovie>
+#include <QMediaPlayer>
 
-namespace Ui {
-class wash;
-}
-
-class wash : public QMainWindow
+class Wash : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 
 public:
-    explicit wash(QWidget *parent = nullptr);
-    ~wash();
-
+    Wash(int width, int height);
+    QPixmap get_img(){return img_;};
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+signals:
+    void LostTheMiniGame(Wash * w);
 private:
-    Ui::wash *ui;
+    QPixmap img_;
 };
 
 #endif // WASH_H

@@ -5,5 +5,4 @@ Life::Life(int x, int y){
     life_ = life_.scaled(100, 100);
     setPos(x,y);
     setPixmap(life_);
-    lives_++;
 }

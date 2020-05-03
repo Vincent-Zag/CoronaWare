@@ -1,14 +1,12 @@
 #include "wash.h"
-#include "ui_wash.h"
 
-wash::wash(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::wash)
-{
-    ui->setupUi(this);
+Wash::Wash(int width, int height){
+    img_.load(":/assets/img/handwash_background.png");
+    img_ = img_.scaled(width, height);
+    setPos(0,0);
+    setPixmap(img_);
 }
 
-wash::~wash()
-{
-    delete ui;
+void Wash::mousePressEvent(QGraphicsSceneMouseEvent *event){
+   emit LostTheMiniGame(this);
 }

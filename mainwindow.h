@@ -6,6 +6,8 @@
 #include <QGraphicsItem>
 
 #include "corona.h"
+#include "patience.h"
+#include "wash.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +25,7 @@ public:
 private slots:
     // default slot that reacts to random button being clicked
     void CoronaSelectedSlot(Corona * c);
+    void PatienceSelectedSlot(Patience * p);
 
     void on_startButton_clicked();
 
@@ -31,8 +34,6 @@ private slots:
     void PhasePassed();
 
     void PhaseFailed();
-
-    int RandomHelper();
 
     void PatienceGame();
 
@@ -43,5 +44,7 @@ private:
     int height_;
     int width_;
     int repeat_ = 5;
+    int lives_;
+    bool beat_;
 };
 #endif // MAINWINDOW_H
