@@ -1,16 +1,24 @@
 #include "patience.h"
-#include "ui_patience.h"
 
-patience::patience(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::patience)
-{
-    ui->setupUi(this);
-    QPixmap qp(":/home/vincent/Documents/CSCI3010/HW5/WarioWare/assets/img/patience_background.png");
-    ui->patience_background->setPixmap(qp);
+Patience::Patience(int x, int y){
+    img_.load(":/assets/img/patience_background.jpg");
+    img_ = img_.scaled(1001, 561);
+    setPos(x,y);
+    setPixmap(img_);
 }
 
-patience::~patience()
-{
-    delete ui;
+void Patience::mousePressEvent(QGraphicsSceneMouseEvent *event){
+   if(event->button() != Qt::NoButton){
+        IsCorrect(0);
+   }else{
+        IsCorrect(1);
+   }
+}
+
+bool Patience::IsCorrect(int moved){
+    if (moved == 1){
+        life_lost_ = true;
+    }else{
+        life_lost_ = false;
+    }
 }

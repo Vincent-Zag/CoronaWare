@@ -28,12 +28,20 @@ private slots:
 
     void ShowCountdownTimerSlot();
 
+    void PhasePassed();
 
+    void PhaseFailed();
+
+    int RandomHelper();
+
+    void PatienceGame();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene_;
     QGraphicsScene *managementScene_;
+    int height_;
+    int width_;
     int repeat_ = 5;
 };
 #endif // MAINWINDOW_H

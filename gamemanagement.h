@@ -25,12 +25,11 @@ public:
     void ShowScore();
     void ShowTimer();
     void SetLife(int x, int y);
+    void SetScore(int value);
     int GetScore(){return score_;};
     Life *GetLife1(){return life1_;};
     Life *GetLife2(){return life2_;};
     Timer *GetTimer(int time){return timer_hands_[time];};
-//public slots:
-//    void ShowTimerSlot();
 
 private:
     int score_;

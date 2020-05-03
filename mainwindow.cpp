@@ -1,8 +1,15 @@
+//classes
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "corona.h"
 #include "gamemanagement.h"
 #include "life.h"
+#include "countvirus.h"
+#include "disinfect.h"
+#include "wash.h"
+#include "patience.h"
+
+//qt libraries
 #include <QTime>
 #include <QTimer>
 #include <QMovie>
@@ -32,6 +39,12 @@ MainWindow::MainWindow(QWidget *parent)
     view->setScene(scene_);
     view2->setSceneRect(0,0,view2->frameSize().width(),view2->frameSize().height());
     view2->setScene(managementScene_);
+
+    //setting height and width of graphics views
+    height_ = view->frameSize().height();
+    width_ = view->frameSize().width();
+    qDebug() << "height_ is "<<height_<<"width_ is "<< width_;
+
     //creating the game management
     GameManagement *board = new GameManagement();
 
@@ -64,16 +77,11 @@ MainWindow::MainWindow(QWidget *parent)
     QMovie *wario_dance = new QMovie(":/assets/img/wario_dancing.gif");
     ui->wario_gif->setMovie(wario_dance);
     wario_dance->start();
-    ui->wario_gif->close();
-
 
     qsrand(static_cast<unsigned>(QTime::currentTime().msec()));
     QTimer *time_ = new QTimer(this);
     connect(time_,&QTimer::timeout,this,&MainWindow::ShowCountdownTimerSlot);
     time_->start(1000);
-
-    qDebug() << "Done with magnagementScene";
-
 
     QImage *img = new QImage(":/assets/img/gamemanagement_background.jpeg");
     QBrush bg_brush(*img);
@@ -86,6 +94,19 @@ MainWindow::MainWindow(QWidget *parent)
     ui->time_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
     ui->life_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
     ui->score_label->setText(qscore);
+
+
+    Life *life1 = board->GetLife1();
+    managementScene_->addItem(life1);
+    Life *life2 = board->GetLife2();
+    managementScene_->addItem(life2);
+
+
+    //scene_->clear();
+    Patience *patience_game = new Patience(0,0);
+    //scene_->addItem(patience_game);
+
+
 
 }
 void MainWindow::ShowCountdownTimerSlot(){
@@ -115,17 +136,61 @@ void MainWindow::CoronaSelectedSlot(Corona * c){
 
 void MainWindow::Games(){
     scene_->clear();
-    QImage *img = new QImage(":/assets/img/sick village.png");
-    *img = img->scaled(ui->graphicsView->frameSize().width(),ui->graphicsView->frameSize().height());
-    QBrush bg_brush(*img);
+    Disinfect *disinfect = new Disinfect(width_, height_);
+    QImage * background= disinfect->get_background();
+    //* background= background->scaled(width_, height_);
+    QBrush bg_brush(* (background));
     scene_ ->setBackgroundBrush(bg_brush);
+    std::vector<Corona *> cells= disinfect->get_cells();
+    for(uint i=0; i< cells.size(); i++){
+        scene_->addItem(cells[i]);
+        connect(cells[i], &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
+    }
+    //need to create a button for patience here
+    //as well as a label to prompt patience...
 }
 
 void MainWindow::on_startButton_clicked()
 {
     qDebug() << "Clicked!";
     ui->startButton->close();
+    ui->wario_gif->close();
     this->Games();
+}
 
+void MainWindow::PhasePassed(){
+    GameManagement *board = new GameManagement();
+    QMediaPlayer * sound = new QMediaPlayer();
+    int num = RandomHelper();
+    if (num == 1){
+        sound->setMedia(QUrl("qrc:/assets/sound/Correct/win1.wav"));
+    }else if(num == 2){
+        sound->setMedia(QUrl("qrc:/assets/sound/Correct/correct.wav"));
+    }else{
+        sound->setMedia(QUrl("qrc:/assets/sound/Correct/cheering.wav"));
+    }
+    sound->play();
+    board->SetScore(1);
+
+}
+int MainWindow::RandomHelper(){
+    return qrand() % 3 +1;
+}
+void MainWindow::PhaseFailed(){
+    GameManagement *board = new GameManagement();
+    QMediaPlayer * sound = new QMediaPlayer();
+    int num = RandomHelper();
+    if (num == 1){
+        sound->setMedia(QUrl("qrc:/assets/sound/Incorrect/booing.wav"));
+    }else if(num == 2){
+        sound->setMedia(QUrl("qrc:/assets/sound/Incorrect/incorrect.wav"));
+    }else{
+        sound->setMedia(QUrl("qrc:/assets/sound/Incorrect/lose.wav"));
+    }
+    sound->play();
+    board->SetScore(-1);
+}
+
+void MainWindow::PatienceGame(){
 
 }

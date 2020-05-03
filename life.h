@@ -11,6 +11,7 @@ class Life : public QObject, public QGraphicsPixmapItem
 public:
     Life(int x, int y);
     int GetLives(){return lives_;};
+    void RemoveLife(){lives_--;};
     QPixmap get_img(){return life_;};
 signals:
 
