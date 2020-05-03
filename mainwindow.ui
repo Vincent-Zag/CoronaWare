@@ -609,6 +609,19 @@
      <string>Start</string>
     </property>
    </widget>
+   <widget class="QLabel" name="prompt_label">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>440</y>
+      <width>411</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>graphicsView_2</zorder>
    <zorder>title_image</zorder>
    <zorder>graphicsView</zorder>
@@ -617,6 +630,7 @@
    <zorder>score_label</zorder>
    <zorder>life_label</zorder>
    <zorder>time_label</zorder>
+   <zorder>prompt_label</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

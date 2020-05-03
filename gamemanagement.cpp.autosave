@@ -3,6 +3,7 @@
 GameManagement::GameManagement()
 {
    score_ = 0;
+   if ()
    life1_ = new Life(901,50);
    life2_ = new Life(801,50);
    timer_hands_[0] = new Timer(501,40,0);
