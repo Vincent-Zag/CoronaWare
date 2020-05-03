@@ -26,7 +26,7 @@ public:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 signals:
-    void LostTheMiniGame(Wash * w);
+    void WashSelected(Wash * w);
 private:
     QPixmap img_;
 };

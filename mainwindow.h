@@ -26,7 +26,7 @@ private slots:
     // default slot that reacts to random button being clicked
     void CoronaSelectedSlot(Corona * c);
     void PatienceSelectedSlot(Patience * p);
-    //void WashSelectedSlot(Wash * w);
+    void WashSelectedSlot(Wash * w);
 
     void on_startButton_clicked();
 
@@ -40,8 +40,9 @@ private slots:
 
     void WashGame();
 
-    void on_handwashing_gif_customContextMenuRequested(const QPoint &pos);
+    void MainMenu();
 
+    void RandomHelper();
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene_;
@@ -49,6 +50,7 @@ private:
     int height_;
     int width_;
     int repeat_ = 5;
+    int amount_;
     int lives_;
     bool beat_;
 };

@@ -613,7 +613,7 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>130</y>
       <width>451</width>
       <height>431</height>
      </rect>
@@ -626,8 +626,8 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>530</y>
-      <width>281</width>
+      <y>0</y>
+      <width>991</width>
       <height>31</height>
      </rect>
     </property>
@@ -643,6 +643,50 @@
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="correct_label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1021</width>
+      <height>561</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>1021</width>
+      <height>561</height>
+     </size>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="Resource.qrc">:/assets/img/correct_icon.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="incorrect_label">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1011</width>
+      <height>551</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>1011</width>
+      <height>551</height>
+     </size>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="Resource.qrc">:/assets/img/Incorrect_icon.png</pixmap>
+    </property>
+   </widget>
    <zorder>graphicsView_2</zorder>
    <zorder>title_image</zorder>
    <zorder>graphicsView</zorder>
@@ -653,6 +697,8 @@
    <zorder>time_label</zorder>
    <zorder>handwashing_gif</zorder>
    <zorder>prompt_label</zorder>
+   <zorder>correct_label</zorder>
+   <zorder>incorrect_label</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -666,6 +712,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="Resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

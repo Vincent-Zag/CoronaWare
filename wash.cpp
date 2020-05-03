@@ -8,5 +8,5 @@ Wash::Wash(int width, int height){
 }
 
 void Wash::mousePressEvent(QGraphicsSceneMouseEvent *event){
-   emit LostTheMiniGame(this);
+   emit WashSelected(this);
 }
