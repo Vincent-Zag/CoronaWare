@@ -88,17 +88,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->time_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
     ui->life_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
     ui->score_label->setText(qscore);
-    ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
-
+    ui->handwashing_gif->setVisible(false);
+    ui->prompt_label->setVisible(false);
 
     Life *life1 = board->GetLife1();
     managementScene_->addItem(life1);
     Life *life2 = board->GetLife2();
     managementScene_->addItem(life2);
-
-    Wash *wash_game = new Wash(width_,height_);
-    scene_->addItem(wash_game);
-
     lives_ = board->GetLives();
 }
 
@@ -131,7 +127,8 @@ void MainWindow::CoronaSelectedSlot(Corona * c){
 }
 
 void MainWindow::Games(){
-    PatienceGame();
+    //PatienceGame();
+    WashGame();
 //    scene_->clear();
 //    QImage *img = new QImage(":/assets/img/sick village.png");
 //    *img = img->scaled(width_,height_);
@@ -155,13 +152,14 @@ void MainWindow::PhasePassed(){
     QMediaPlayer * sound = new QMediaPlayer();
     QMediaPlayer * sound2 = new QMediaPlayer();
     QMediaPlayer * sound3 = new QMediaPlayer();
-    sound->setMedia(QUrl("qrc:/assets/sound/Correct/win1.wav"));
+    //sound->setMedia(QUrl("qrc:/assets/sound/Correct/win1.wav"));
     sound2->setMedia(QUrl("qrc:/assets/sound/Correct/correct.wav"));
     sound3->setMedia(QUrl("qrc:/assets/sound/Correct/cheering.wav"));
     sound->play();
     sound2->play();
     sound3->play();
     board->SetScore(1);
+
     std::string score = "Score: "+ std::to_string(board->GetScore());
     QString qscore(score.c_str());
     ui->score_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
@@ -199,6 +197,11 @@ void MainWindow::PatienceGame(){
         Life *life2 = board->GetLife2();
         managementScene_->addItem(life2);
     }
+    std::string prompt = "Patience.... ";
+    QString qprompt(prompt.c_str());
+    ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->prompt_label->setVisible(true);
+    ui->prompt_label->setText(qprompt);
         beat_ = true;
 }
 
@@ -218,4 +221,26 @@ void MainWindow::PatienceSelectedSlot(Patience * p){
         managementScene_->addItem(life1);
     }
     beat_ = false;
+}
+
+void MainWindow::WashGame(){
+    scene_->clear();
+    managementScene_->clear();
+    GameManagement *board = new GameManagement();
+    Wash *wash_game = new Wash(width_,height_);
+    scene_->addItem(wash_game);
+    managementScene_->addItem(board);
+    ui->handwashing_gif->setVisible(true);
+    ui->handwashing_gif->setStyleSheet("background-color:rgba(213,240,172,100%)");
+
+    QMovie *hands_washing = new QMovie(":/assets/img/handwashing.gif");
+    ui->handwashing_gif->setMovie(hands_washing);
+    hands_washing->start();
+
+    std::string prompt = "Wash the Viruses away!";
+    QString qprompt(prompt.c_str());
+    ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->prompt_label->setVisible(true);
+    ui->prompt_label->setText(qprompt);
+
 }

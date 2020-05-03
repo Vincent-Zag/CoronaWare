@@ -599,24 +599,45 @@
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>728</x>
       <y>320</y>
-      <width>89</width>
-      <height>25</height>
+      <width>111</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Start</string>
     </property>
    </widget>
+   <widget class="QLabel" name="handwashing_gif">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>451</width>
+      <height>431</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <widget class="QLabel" name="prompt_label">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>440</y>
-      <width>411</width>
-      <height>121</height>
+      <x>0</x>
+      <y>530</y>
+      <width>281</width>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>URW Bookman L</family>
+      <pointsize>15</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -630,6 +651,7 @@
    <zorder>score_label</zorder>
    <zorder>life_label</zorder>
    <zorder>time_label</zorder>
+   <zorder>handwashing_gif</zorder>
    <zorder>prompt_label</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
