@@ -1,6 +1,5 @@
-#ifndef DISINFECT_H
-#define DISINFECT_H
-
+#ifndef IMAGE_H
+#define IMAGE_H
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QObject>
@@ -16,15 +15,14 @@
 #include <QMediaPlayer>
 
 
-
-class disinfect
-{
+class Image: public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
-
-public:
-    disinfect();
-
-private:
+    public:
+        Image();
+        QPixmap get_pixmap(){return * pixmap_;};
+    private:
+        QPixmap * pixmap_;
 };
 
-#endif // DISINFECT_H
+
+#endif // IMAGE_H

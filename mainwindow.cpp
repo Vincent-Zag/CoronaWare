@@ -53,14 +53,18 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     Corona * c1 = new Corona(400,100);
+    Corona * c2 = new Corona(400,200);
     scene_->addItem(c1);
+    scene_->addItem(c2);
 
     connect(c1, &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
+    connect(c2, &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
 
 
     QMovie *wario_dance = new QMovie(":/assets/img/wario_dancing.gif");
     ui->wario_gif->setMovie(wario_dance);
     wario_dance->start();
+    ui->wario_gif->close();
 
 
     qsrand(static_cast<unsigned>(QTime::currentTime().msec()));
