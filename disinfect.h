@@ -26,15 +26,21 @@ class Disinfect: public QObject, public QGraphicsPixmapItem
 public:
     Disinfect(int width_, int height_);
 
-    QImage * get_background() {return background_;};
+    //QImage * get_background() {return background_;};
 
     std::vector<Corona *> get_cells() {return cells_;};
 
     void populate(int width, int height); //This will be virtual
 
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+
+signals:
+    void LostTheMiniGame(Disinfect * d);
+
 
 private:
-    QImage * background_;
+    QPixmap background_;
     std::vector<Corona *> cells_;
 };
 

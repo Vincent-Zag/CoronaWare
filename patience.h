@@ -21,14 +21,14 @@ class Patience : public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 
 public:
-    Patience(int x, int y);
+    Patience(int width, int height);
     QPixmap get_img(){return img_;};
-    bool IsCorrect(int moved);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+signals:
+    void LostTheMiniGame(Patience * p);
 private:
     QPixmap img_;
-    bool life_lost_;
 };
 
 #endif // PATIENCE_H

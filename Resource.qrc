@@ -31,5 +31,6 @@
         <file>assets/sound/Patience minigame/Nichijou - GOD IS DEAD.mp3</file>
         <file>assets/sound/wash hand minigame/water.wav</file>
         <file>assets/img/gamemanagement_background.jpeg</file>
+        <file>assets/img/handwash_background.png</file>
     </qresource>
 </RCC>
