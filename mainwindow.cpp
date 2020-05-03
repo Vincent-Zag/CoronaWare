@@ -141,6 +141,21 @@ void MainWindow::PhasePassed(){
 }
 
 void MainWindow::PhaseFailed(){
+    managementScene_->clear();
+    GameManagement *board = new GameManagement();
+    managementScene_->addItem(board);
+    board->SetLife(-1);
+    lives_ = board->GetLives();
+    qDebug() << lives_;
+    if (lives_ == 1){
+        Life *life1 = board->GetLife1();
+        managementScene_->addItem(life1);
+    }else if(lives_ == 2){
+        Life *life1 = board->GetLife1();
+        managementScene_->addItem(life1);
+        Life *life2 = board->GetLife2();
+        managementScene_->addItem(life2);
+    }
     ui->prompt_label->setVisible(true);
     ui->incorrect_label->setVisible(true);
     QMediaPlayer * sound = new QMediaPlayer();
@@ -156,8 +171,6 @@ void MainWindow::PhaseFailed(){
 
 void MainWindow::PatienceGame(){
     scene_->clear();
-    managementScene_->clear();
-    GameManagement *board = new GameManagement();
     Patience *patience_game = new Patience(width_,height_);
     std::string prompt = "Patience.... ";
     QString qprompt(prompt.c_str());
@@ -165,48 +178,23 @@ void MainWindow::PatienceGame(){
     ui->prompt_label->setVisible(true);
     ui->prompt_label->setText(qprompt);
     connect(patience_game, &Patience::LostTheMiniGame, this, &MainWindow::PatienceSelectedSlot);
-
     scene_->addItem(patience_game);
-    managementScene_->addItem(board);
-    if (lives_ == 1){
-        Life *life1 = board->GetLife1();
-        managementScene_->addItem(life1);
-    }else if(lives_ == 2){
-        Life *life1 = board->GetLife1();
-        managementScene_->addItem(life1);
-        Life *life2 = board->GetLife2();
-        managementScene_->addItem(life2);
-    }
-
     beat_ = true;
-
 }
 
 void MainWindow::PatienceSelectedSlot(Patience * p){
     scene_->clear();
-    managementScene_->clear();
-    GameManagement *board = new GameManagement();
     QImage *img = new QImage(":/assets/img/cryguy.jpg");
     *img = img->scaled(width_,height_);
     QBrush bg_brush(*img);
     scene_ ->setBackgroundBrush(bg_brush);
-    board->SetLife(-1);
-    lives_ = board->GetLives();
-
-    if (lives_ == 1){
-        Life *life1 = board->GetLife1();
-        managementScene_->addItem(life1);
-    }
     beat_ = false;
 }
 
 void MainWindow::WashGame(){
     scene_->clear();
-    managementScene_->clear();
-    GameManagement *board = new GameManagement();
     Wash *wash_game = new Wash(width_,height_);
     scene_->addItem(wash_game);
-    managementScene_->addItem(board);
     ui->handwashing_gif->setVisible(true);
     ui->handwashing_gif->setStyleSheet("background-color:rgba(213,240,172,100%)");
     RandomHelper();
@@ -235,6 +223,7 @@ void MainWindow::WashSelectedSlot(Wash * w){
     }else{
       beat_ = true;
     }
+    qDebug() << amount_;
     amount_--;
 }
 
