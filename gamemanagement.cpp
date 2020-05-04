@@ -2,7 +2,6 @@
 
 GameManagement::GameManagement()
 {
-   score_ = 0;
    lives_ = 2;
    if (lives_ == 2){
         life1_ = new Life(901,50);
@@ -16,10 +15,6 @@ GameManagement::GameManagement()
    timer_hands_[3] = new Timer(201,40,3);
    timer_hands_[4] = new Timer(101,40,4);
    timer_hands_[5] = new Timer(1,40,5);
-}
-
-void GameManagement::SetScore(int value){
-    score_ = score_ + value;
 }
 
 void GameManagement::SetLife(int value){

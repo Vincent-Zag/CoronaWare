@@ -54,6 +54,13 @@ private slots:
     void on_continue_button_clicked();
 
     void ShowScore();
+
+    void on_countradio1_clicked();
+
+    void on_countradio2_clicked();
+
+    void on_countradio3_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene_;
@@ -65,7 +72,8 @@ private:
     int lives_;
     bool beat_;
     int corona_num_=0;
-    std::string score_;
+    int score_ = 0;
+    std::string score_text_;
     QTimer *time_ = new QTimer(this);
 };
 #endif // MAINWINDOW_H

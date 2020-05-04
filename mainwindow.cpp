@@ -109,7 +109,7 @@ void MainWindow::Games(){
     ui->correct_label->setVisible(false);
     ui->incorrect_label->setVisible(false);
     int val = 0;
-    val = qrand() % 3;
+    val = qrand() % 4;
     switch(val){
         case 0 : {
                 DisinfectGame();
@@ -158,10 +158,9 @@ void MainWindow::PhasePassed(){
     sound3->setMedia(QUrl("qrc:/assets/sound/Correct/cheering.wav"));
     sound2->play();
     sound3->play();
-    board->SetScore(1);
-    qDebug() << board->GetScore();
-    score_ = "Score: "+ std::to_string(board->GetScore());
-    QString qscore(score_.c_str());
+    score_++;
+    score_text_ = "Score: "+ std::to_string(score_);
+    QString qscore(score_text_.c_str());
     ui->score_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
     ui->score_label->setText(qscore);
     ui->continue_button->setVisible(true);
@@ -292,8 +291,8 @@ void MainWindow::MainMenu(){
     managementScene_ ->setBackgroundBrush(bg_brush);
 
     //Game management Overhead Labels
-    score_ = "Score: "+ std::to_string(board->GetScore());
-    QString qscore(score_.c_str());
+    score_text_ = "Score: "+ std::to_string(score_);
+    QString qscore(score_text_.c_str());
     ui->score_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
     ui->time_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
     ui->life_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
@@ -360,7 +359,7 @@ void MainWindow::ShowScore(){
 
 void MainWindow::CountGame(){
     scene_->clear();
-    std::string prompt = "How many Are there???!";
+    std::string prompt = "How many are there?";
     QString qprompt(prompt.c_str());
     ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
     ui->prompt_label->setVisible(true);
@@ -374,49 +373,40 @@ void MainWindow::CountGame(){
         //connect(cells[i], &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
     }
     corona_num_=cells.size();
-    int random_loc = qrand() % 3 +1;
     int temp_holder = corona_num_;
     ui->countradio1->setVisible(true);
     ui->countradio2->setVisible(true);
     ui->countradio3->setVisible(true);
+
     std::string answer1;
     std::string answer2;
     std::string answer3;
-    if(random_loc == 1){
-        answer1 = std::to_string(corona_num_);
-        answer2 = std::to_string(temp_holder+2);
-        answer3 = std::to_string(temp_holder-1);
-    }else if (random_loc == 2){
-        answer1 = std::to_string(temp_holder+2);
-        answer2 = std::to_string(corona_num_);
-        answer3 = std::to_string(temp_holder-1);
-    }else{
-        answer1 = std::to_string(temp_holder+2);
-        answer2 = std::to_string(temp_holder-1);
-        answer3 = std::to_string(corona_num_);
-    }
+
+    answer1 = std::to_string(corona_num_);
+    answer2 = std::to_string(temp_holder+2);
+    answer3 = std::to_string(temp_holder-1);
+
     QString qanswer1(answer1.c_str());
     ui->countradio1->setText(qanswer1);
     QString qanswer2(answer2.c_str());
     ui->countradio2->setText(qanswer2);
     QString qanswer3(answer3.c_str());
     ui->countradio3->setText(qanswer3);
-    if(ui->countradio1->isDown()){
-        if(std::to_string(corona_num_) == answer1){
-            beat_ = true;
-        }
-    }
-    if(ui->countradio2->isDown()){
-        if(std::to_string(corona_num_) == answer2){
-            beat_ = true;
-        }
-    }
-    if(ui->countradio3->isDown()){
-        if(std::to_string(corona_num_) == answer3){
-            beat_ = true;
-        }
-    }else{
-        beat_ = false;
-    }
+
     update();
+}
+
+void MainWindow::on_countradio1_clicked()
+{
+    beat_ = true;
+}
+
+void MainWindow::on_countradio2_clicked()
+{
+    beat_=false;
+}
+
+void MainWindow::on_countradio3_clicked()
+{
+    beat_=false;
 }
