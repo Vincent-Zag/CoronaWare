@@ -684,7 +684,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="Resource.qrc">:/assets/img/Incorrect_icon.png</pixmap>
+     <pixmap>:/assets/img/Incorrect_icon.png</pixmap>
     </property>
    </widget>
    <widget class="QPushButton" name="continue_button">
@@ -739,6 +739,42 @@
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="good_job">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>281</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>30</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Good Job!!!!</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="score_big">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>180</y>
+      <width>381</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>50</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Score:</string>
+    </property>
+   </widget>
    <zorder>graphicsView_2</zorder>
    <zorder>title_image</zorder>
    <zorder>graphicsView</zorder>
@@ -755,6 +791,8 @@
    <zorder>countradio2</zorder>
    <zorder>countradio3</zorder>
    <zorder>countradio1</zorder>
+   <zorder>good_job</zorder>
+   <zorder>score_big</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -768,8 +806,6 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="Resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

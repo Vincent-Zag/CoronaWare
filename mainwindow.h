@@ -70,7 +70,7 @@ private:
     int width_;
     int repeat_ = 5;
     int amount_;
-    int lives_;
+    int lives_=2;
     bool beat_;
     int corona_num_=0;
     int score_ = 0;

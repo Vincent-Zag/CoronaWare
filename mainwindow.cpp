@@ -137,8 +137,8 @@ void MainWindow::on_startButton_clicked()
     connect(time_,&QTimer::timeout,this,&MainWindow::ShowCountdownTimerSlot);
     time_->start(1000);
     if(lives_ != 0){
-      //this->Games();
-        this->ShowScore();
+      this->Games();
+        //this->ShowScore();
     }
 
 }
@@ -155,6 +155,7 @@ void MainWindow::PhasePassed(){
     ui->countradio1->setVisible(false);
     ui->countradio2->setVisible(false);
     ui->countradio3->setVisible(false);
+    ui->handwashing_gif->close();
     sound2->setMedia(QUrl("qrc:/assets/sound/Correct/correct.wav"));
     sound3->setMedia(QUrl("qrc:/assets/sound/Correct/cheering.wav"));
     sound2->play();
@@ -185,7 +186,7 @@ void MainWindow::PhaseFailed(){
     GameManagement *board = new GameManagement();
     managementScene_->addItem(board);
     board->SetLife(-1);
-    lives_ = board->GetLives();
+    lives_ --;
     qDebug() << lives_;
     ui->prompt_label->setVisible(false);
     ui->countradio1->setVisible(false);
@@ -193,6 +194,7 @@ void MainWindow::PhaseFailed(){
     ui->countradio3->setVisible(false);
     ui->incorrect_label->setVisible(true);
     ui->continue_button->setVisible(true);
+    ui->handwashing_gif->close();
     QMediaPlayer * sound = new QMediaPlayer();
     QMediaPlayer * sound2 = new QMediaPlayer();
     QMediaPlayer * sound3 = new QMediaPlayer();
@@ -213,6 +215,7 @@ void MainWindow::PhaseFailed(){
     }else{
         ShowScore();
     }
+    qDebug()<< "Lives is, "<<lives_;
     update();
     time_->stop();
 }
@@ -303,6 +306,8 @@ void MainWindow::MainMenu(){
     ui->correct_label->setVisible(false);
     ui->incorrect_label->setVisible(false);
     ui->continue_button->setVisible(false);
+    ui->good_job->setVisible(false);
+    ui->score_big->setVisible(false);
     Life *life1 = board->GetLife1();
     managementScene_->addItem(life1);
     Life *life2 = board->GetLife2();
@@ -356,9 +361,11 @@ void MainWindow::on_continue_button_clicked()
 
 void MainWindow::ShowScore(){
     scene_->clear();
-    int score_temp=3;
     Score * val;
-    if(score_temp>=10){
+    ui->incorrect_label->setVisible(false);
+    ui->correct_label->setVisible(false);
+    ui->continue_button->setVisible(false);
+    if(score_>=10){
         val= ScoreFactory::GetGood(width_, height_);
         QMovie * dance= val->get_wariodance();
         ui->wario_gif->setMovie(dance);
@@ -370,9 +377,14 @@ void MainWindow::ShowScore(){
         sound->play();
         QMediaPlayer * song= val->get_song();
         song->play();
+        std::string prompt = "Good Job!!";
+        QString qprompt(prompt.c_str());
+        ui->good_job->setStyleSheet("background-color:rgba(0,0,0,0%)");
+        ui->good_job->setVisible(true);
+        ui->good_job->setText(qprompt);
 
     }
-    else if(score_temp<=3){
+    else if(score_<=3){
         val= ScoreFactory::GetBad(width_, height_);
         QColor color= val->get_color();
         scene_->setBackgroundBrush(QBrush(color, Qt::SolidPattern));
@@ -386,25 +398,36 @@ void MainWindow::ShowScore(){
             connect(cells[i], &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
 
         }
+        std::string prompt = "FAIL :(";
+        QString qprompt(prompt.c_str());
+        ui->good_job->setStyleSheet("background-color:rgba(0,0,0,0%)");
+        ui->good_job->setVisible(true);
+        ui->good_job->setText(qprompt);
     }
     else{
         val= ScoreFactory::GetMeh(width_, height_);
-        QMovie * dance= val->get_wariodance();
-        ui->wario_gif->setMovie(dance);
-        dance->start();
         QColor color= val->get_color();
         scene_->setBackgroundBrush(QBrush(color, Qt::SolidPattern));
         QMediaPlayer * sound= val->get_sound();
         sound->play();
-        QMediaPlayer * song= val->get_song();
-        song->play();
         std::vector<Corona *> cells=val->get_cells();
         for(uint i=0; i< cells.size(); i++){
             scene_->addItem(cells[i]);
             connect(cells[i], &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
 
         }
+        std::string prompt = "Not Bad...";
+        QString qprompt(prompt.c_str());
+        ui->good_job->setStyleSheet("background-color:rgba(0,0,0,0%)");
+        ui->good_job->setVisible(true);
+        ui->good_job->setText(qprompt);
+
     }
+    std::string score = "Score: "+std::to_string(score_);
+    QString qscore(score.c_str());
+    ui->score_big->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->score_big->setVisible(true);
+    ui->score_big->setText(qscore);
 
 
 
@@ -413,6 +436,9 @@ void MainWindow::ShowScore(){
 
 void MainWindow::CountGame(){
     scene_->clear();
+    ui->incorrect_label->setVisible(false);
+    ui->correct_label->setVisible(false);
+
     std::string prompt = "How many are there?";
     QString qprompt(prompt.c_str());
     ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
@@ -447,7 +473,7 @@ void MainWindow::CountGame(){
     QString qanswer3(answer3.c_str());
     ui->countradio3->setText(qanswer3);
 
-    update();
+    this->update();
 }
 
 void MainWindow::on_countradio1_clicked()
