@@ -35,7 +35,7 @@ private:
     Life *life1_;
     Life *life2_;
     Timer *timer_hands_[6];
-    int lives_;
+    int lives_ = 2;
 };
 
 #endif // GAMEMANAGEMENT_H

@@ -54,7 +54,6 @@ private slots:
     void on_continue_button_clicked();
 
     void ShowScore();
-
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene_;

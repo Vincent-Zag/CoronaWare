@@ -105,15 +105,13 @@ void MainWindow::CoronaSelectedSlot(Corona * c){
 }
 
 void MainWindow::Games(){
-        scene_->clear();
-        ui->correct_label->setVisible(false);
-        ui->incorrect_label->setVisible(false);
-        int val = qrand() % 2;
-        val=2;
-
-        //testing purposes only
-        switch(val){
-            case 0 : {//disinfect game
+    scene_->clear();
+    ui->correct_label->setVisible(false);
+    ui->incorrect_label->setVisible(false);
+    int val = 0;
+    val = qrand() % 3;
+    switch(val){
+        case 0 : {
                 DisinfectGame();
                 break;
             }
@@ -123,8 +121,13 @@ void MainWindow::Games(){
             }
         case 2:{
                 CountGame();
+                break;
         }
+        case 3:{
+                WashGame();
+                break;
         }
+   }
 }
 
 void MainWindow::on_startButton_clicked()
@@ -140,25 +143,40 @@ void MainWindow::on_startButton_clicked()
 }
 
 void MainWindow::PhasePassed(){
+    scene_->clear();
     ui->correct_label->setVisible(true);
+    managementScene_->clear();
     GameManagement *board = new GameManagement();
-    QMediaPlayer * sound = new QMediaPlayer();
+    managementScene_->addItem(board);
     QMediaPlayer * sound2 = new QMediaPlayer();
     QMediaPlayer * sound3 = new QMediaPlayer();
-    //sound->setMedia(QUrl("qrc:/assets/sound/Correct/win1.wav"));
+    ui->prompt_label->setVisible(false);
+    ui->countradio1->setVisible(false);
+    ui->countradio2->setVisible(false);
+    ui->countradio3->setVisible(false);
     sound2->setMedia(QUrl("qrc:/assets/sound/Correct/correct.wav"));
     sound3->setMedia(QUrl("qrc:/assets/sound/Correct/cheering.wav"));
-    sound->play();
     sound2->play();
     sound3->play();
     board->SetScore(1);
-    qDebug() << board->GetLives();
+    qDebug() << board->GetScore();
     score_ = "Score: "+ std::to_string(board->GetScore());
     QString qscore(score_.c_str());
     ui->score_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
     ui->score_label->setText(qscore);
     ui->continue_button->setVisible(true);
+    if (lives_ == 1){
+        Life *life1 = board->GetLife1();
+        managementScene_->addItem(life1);
+    }else if(lives_ == 2){
+        Life *life1 = board->GetLife1();
+        managementScene_->addItem(life1);
+        Life *life2 = board->GetLife2();
+        managementScene_->addItem(life2);
+    }
+    update();
     time_->stop();
+
 }
 
 void MainWindow::PhaseFailed(){
@@ -169,7 +187,10 @@ void MainWindow::PhaseFailed(){
     board->SetLife(-1);
     lives_ = board->GetLives();
     qDebug() << lives_;
-    ui->prompt_label->setVisible(true);
+    ui->prompt_label->setVisible(false);
+    ui->countradio1->setVisible(false);
+    ui->countradio2->setVisible(false);
+    ui->countradio3->setVisible(false);
     ui->incorrect_label->setVisible(true);
     ui->continue_button->setVisible(true);
     QMediaPlayer * sound = new QMediaPlayer();
@@ -192,8 +213,8 @@ void MainWindow::PhaseFailed(){
     }else{
         ShowScore();
     }
+    update();
     time_->stop();
-
 }
 
 void MainWindow::PatienceGame(){
@@ -201,7 +222,7 @@ void MainWindow::PatienceGame(){
     Patience *patience_game = new Patience(width_,height_);
     std::string prompt = "Patience.... ";
     QString qprompt(prompt.c_str());
-    ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->prompt_label->setStyleSheet("background-color:rgba(255,255,255,0%)");
     ui->prompt_label->setVisible(true);
     ui->prompt_label->setText(qprompt);
     connect(patience_game, &Patience::LostTheMiniGame, this, &MainWindow::PatienceSelectedSlot);
@@ -255,7 +276,6 @@ void MainWindow::WashSelectedSlot(Wash * w){
     }else{
       beat_ = true;
     }
-    qDebug() << amount_;
     amount_--;
 }
 
@@ -288,10 +308,18 @@ void MainWindow::MainMenu(){
     Life *life2 = board->GetLife2();
     managementScene_->addItem(life2);
     lives_ = board->GetLives();
+    ui->countradio1->setVisible(false);
+    ui->countradio2->setVisible(false);
+    ui->countradio3->setVisible(false);
 }
 
 void MainWindow::DisinfectGame(){
     scene_->clear();
+    std::string prompt = "Click All the Viruses!";
+    QString qprompt(prompt.c_str());
+    ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->prompt_label->setVisible(true);
+    ui->prompt_label->setText(qprompt);
     Disinfect *disinfect = new Disinfect(width_, height_);
     connect(disinfect, &Disinfect::LostTheMiniGame, this, &MainWindow::DisinfectGameSlot);
     scene_->addItem(disinfect);
@@ -332,37 +360,63 @@ void MainWindow::ShowScore(){
 
 void MainWindow::CountGame(){
     scene_->clear();
-    managementScene_->clear();
-    GameManagement *board = new GameManagement();
+    std::string prompt = "How many Are there???!";
+    QString qprompt(prompt.c_str());
+    ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->prompt_label->setVisible(true);
+    ui->prompt_label->setText(qprompt);
     CountVirus *count_virus = new CountVirus(width_, height_);
-    //connect(disinfect, &Disinfect::LostTheMiniGame, this, &MainWindow::DisinfectGameSlot);
-
-//    QImage * background= disinfect->get_background();
-//    //* background= background->scaled(width_, height_);
-//    QBrush bg_brush(* (background));
-//    scene_ ->setBackgroundBrush(bg_brush);
-    //QPixmap background= count_virus->get_background();
     scene_->addItem(count_virus);
     count_virus->populate(width_,height_);
     std::vector<Corona *> cells= count_virus->get_cells();
     for(uint i=0; i< cells.size(); i++){
         scene_->addItem(cells[i]);
-        connect(cells[i], &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
-
+        //connect(cells[i], &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
     }
     corona_num_=cells.size();
-    // Add the UI
-    qDebug()<<"corona_num is "<<corona_num_;
-    managementScene_->addItem(board);
-    if (lives_ == 1){
-        Life *life1 = board->GetLife1();
-        managementScene_->addItem(life1);
-    }else if(lives_ == 2){
-        Life *life1 = board->GetLife1();
-        managementScene_->addItem(life1);
-        Life *life2 = board->GetLife2();
-        managementScene_->addItem(life2);
+    int random_loc = qrand() % 3 +1;
+    int temp_holder = corona_num_;
+    ui->countradio1->setVisible(true);
+    ui->countradio2->setVisible(true);
+    ui->countradio3->setVisible(true);
+    std::string answer1;
+    std::string answer2;
+    std::string answer3;
+    if(random_loc == 1){
+        answer1 = std::to_string(corona_num_);
+        answer2 = std::to_string(temp_holder+2);
+        answer3 = std::to_string(temp_holder-1);
+    }else if (random_loc == 2){
+        answer1 = std::to_string(temp_holder+2);
+        answer2 = std::to_string(corona_num_);
+        answer3 = std::to_string(temp_holder-1);
+    }else{
+        answer1 = std::to_string(temp_holder+2);
+        answer2 = std::to_string(temp_holder-1);
+        answer3 = std::to_string(corona_num_);
     }
-
-
+    QString qanswer1(answer1.c_str());
+    ui->countradio1->setText(qanswer1);
+    QString qanswer2(answer2.c_str());
+    ui->countradio2->setText(qanswer2);
+    QString qanswer3(answer3.c_str());
+    ui->countradio3->setText(qanswer3);
+    if(ui->countradio1->isDown()){
+        if(std::to_string(corona_num_) == answer1){
+            beat_ = true;
+        }
+    }
+    if(ui->countradio2->isDown()){
+        if(std::to_string(corona_num_) == answer2){
+            beat_ = true;
+        }
+    }
+    if(ui->countradio3->isDown()){
+        if(std::to_string(corona_num_) == answer3){
+            beat_ = true;
+        }
+    }else{
+        beat_ = false;
+    }
+    update();
 }

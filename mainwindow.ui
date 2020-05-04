@@ -700,6 +700,45 @@
      <string>Continue!</string>
     </property>
    </widget>
+   <widget class="QRadioButton" name="countradio2">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>430</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="countradio3">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>480</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="countradio1">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>380</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>graphicsView_2</zorder>
    <zorder>title_image</zorder>
    <zorder>graphicsView</zorder>
@@ -713,6 +752,9 @@
    <zorder>correct_label</zorder>
    <zorder>incorrect_label</zorder>
    <zorder>continue_button</zorder>
+   <zorder>countradio2</zorder>
+   <zorder>countradio3</zorder>
+   <zorder>countradio1</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
