@@ -37,10 +37,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>110</y>
-      <width>271</width>
-      <height>301</height>
+      <x>0</x>
+      <y>50</y>
+      <width>411</width>
+      <height>391</height>
      </rect>
     </property>
     <property name="text">
@@ -662,7 +662,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="Resource.qrc">:/assets/img/correct_icon.png</pixmap>
+     <pixmap>:/assets/img/correct_icon.png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="incorrect_label">
@@ -687,6 +687,19 @@
      <pixmap resource="Resource.qrc">:/assets/img/Incorrect_icon.png</pixmap>
     </property>
    </widget>
+   <widget class="QPushButton" name="continue_button">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>410</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Continue!</string>
+    </property>
+   </widget>
    <zorder>graphicsView_2</zorder>
    <zorder>title_image</zorder>
    <zorder>graphicsView</zorder>
@@ -699,6 +712,7 @@
    <zorder>prompt_label</zorder>
    <zorder>correct_label</zorder>
    <zorder>incorrect_label</zorder>
+   <zorder>continue_button</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

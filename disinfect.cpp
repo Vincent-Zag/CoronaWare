@@ -1,14 +1,30 @@
 #include "disinfect.h"
-#include "ui_disinfect.h"
 
-disinfect::disinfect(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::disinfect)
+Disinfect::Disinfect(int width, int height)
 {
-    ui->setupUi(this);
+//    background_ = new QImage(":/assets/img/sick village.png");
+//    * background_= background_->scaled(width,height);
+//    this ->populate(width,height);
+//    //emit LostTheMiniGame(this);
+    background_.load(":/assets/img/sick village.png");
+    background_ = background_.scaled(width, height);
+    setPos(0,0);
+    setPixmap(background_);
+    this->populate(width,height);
 }
 
-disinfect::~disinfect()
-{
-    delete ui;
+void Disinfect::populate(int width, int height){
+    int value=(qrand()%4)+3;
+    for(int i=0; i<value; i++){
+        int cell_w= qrand()%(width-100);
+        int cell_h= qrand()%(height-100);
+        cells_.push_back(new Corona(cell_w,cell_h));
+    }
 }
+
+void Disinfect::mousePressEvent(QGraphicsSceneMouseEvent *event){
+   emit LostTheMiniGame(this);
+}
+
+
+

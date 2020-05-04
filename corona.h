@@ -15,11 +15,12 @@
 #include <QMovie>
 #include <QMediaPlayer>
 
+
+
 class Corona : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
     Corona(int x, int y);
-    QPixmap get_img(){return img_;};
 
 
 protected:
@@ -31,7 +32,7 @@ signals:
 private:
     int x_;
     int y_;
-    QPixmap img_;
+   QPixmap img_;
 };
 
 

@@ -8,6 +8,7 @@
 #include "corona.h"
 #include "patience.h"
 #include "wash.h"
+#include "disinfect.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,10 +28,14 @@ private slots:
     void CoronaSelectedSlot(Corona * c);
     void PatienceSelectedSlot(Patience * p);
     void WashSelectedSlot(Wash * w);
+    void DisinfectGameSlot(Disinfect * d);
+
 
     void on_startButton_clicked();
 
     void ShowCountdownTimerSlot();
+
+    void DisinfectGame();
 
     void PhasePassed();
 
@@ -43,6 +48,11 @@ private slots:
     void MainMenu();
 
     void RandomHelper();
+
+    void on_continue_button_clicked();
+
+    void ShowScore();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene_;
@@ -53,5 +63,8 @@ private:
     int amount_;
     int lives_;
     bool beat_;
+    int corona_num_=0;
+    std::string score_;
+    QTimer *time_ = new QTimer(this);
 };
 #endif // MAINWINDOW_H

@@ -18,13 +18,6 @@ GameManagement::GameManagement()
    timer_hands_[5] = new Timer(1,40,5);
 }
 
-//void GameManagement::Result(bool success){
-
-//}
-//void GameManagement::ShowScore(){
-
-//}
-
 void GameManagement::SetScore(int value){
     score_ = score_ + value;
 }

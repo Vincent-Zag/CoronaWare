@@ -7,8 +7,8 @@
 #include <QTimer>
 #include <QMovie>
 #include <QMediaPlayer>
-
 #include "corona.h"
+
 
 
 Corona::Corona(int x, int y){
