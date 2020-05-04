@@ -20,9 +20,6 @@ class GameManagement: public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 public:
     GameManagement();
-    void DeleteLife();
-    void Result(bool success);
-    void ShowScore();
     void ShowTimer();
     void SetLife(int value);
     void SetScore(int value);

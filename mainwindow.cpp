@@ -45,21 +45,18 @@ MainWindow::MainWindow(QWidget *parent)
     width_ = view->frameSize().width();
     qDebug() << "height_ is "<<height_<<"width_ is "<< width_;
 
-    //creating the game management
-    GameManagement *board = new GameManagement();
-
     this->setStyleSheet("background-color: white;");
     QPixmap qp_title(":/assets/img/title_image.png");
     QGraphicsPixmapItem *title = scene_->addPixmap( qp_title );
     title->setPos(200,0);
 
 
-// TODO LATER
+//    TODO LATER
 //    QPixmap qp_gif(":/assets/img/dancing_wario.gif");
 //    QGraphicsPixmapItem * wario = scene_->addPixmap( qp_gif );
 //    wario->setPos(40,0);
 
-
+    //Warioware music playing the whole game
     QMediaPlayer * sound = new QMediaPlayer();
     sound->setMedia(QUrl("qrc:/assets/sound/WarioWare, Inc. Super Smash Bros. Ultimate.mp3"));
     sound->setVolume(5);
@@ -74,37 +71,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(c1, &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
     connect(c2, &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
 
+    MainMenu();
 
-    QMovie *wario_dance = new QMovie(":/assets/img/wario_dancing.gif");
-    ui->wario_gif->setMovie(wario_dance);
-    wario_dance->start();
-
-    qsrand(static_cast<unsigned>(QTime::currentTime().msec()));
-
-    QImage *img = new QImage(":/assets/img/gamemanagement_background.jpeg");
-    QBrush bg_brush(*img);
-    managementScene_ ->setBackgroundBrush(bg_brush);
-
-    //Game management Overhead Labels
-    std::string score = "Score: "+ std::to_string(board->GetScore());
-    QString qscore(score.c_str());
-    ui->score_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
-    ui->time_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
-    ui->life_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
-    ui->score_label->setText(qscore);
-
-
-    Life *life1 = board->GetLife1();
-    managementScene_->addItem(life1);
-    Life *life2 = board->GetLife2();
-    managementScene_->addItem(life2);
-
-    Wash *wash_game = new Wash(width_,height_);
-    scene_->addItem(wash_game);
-
-
-
-    lives_ = board->GetLives();
 }
 
 
@@ -129,7 +97,6 @@ void MainWindow::ShowCountdownTimerSlot(){
 }
 
 void MainWindow::CoronaSelectedSlot(Corona * c){
-
     scene_->removeItem(c);
     corona_num_--; //remove the corona counter for each cell clicked and removed
     QMediaPlayer * sound = new QMediaPlayer();
@@ -138,55 +105,73 @@ void MainWindow::CoronaSelectedSlot(Corona * c){
 }
 
 void MainWindow::Games(){
+        scene_->clear();
+        ui->correct_label->setVisible(false);
+        ui->incorrect_label->setVisible(false);
+        int val = qrand() % 2;
+        val=2;
 
-    scene_->clear();
-    int val= qrand() % 2;
-    val=2; //testing purposes only
-    switch(val){
-        case 0 : {//disinfect game
-            DisinfectGame();
-            break;
+        //testing purposes only
+        switch(val){
+            case 0 : {//disinfect game
+                DisinfectGame();
+                break;
+            }
+        case 1 :{
+                PatienceGame();
+                break;
+            }
+        case 2:{
+                CountGame();
         }
-    case 1 :{
-            PatienceGame();
-            break;
         }
-    case 2:{
-        CountGame();
-    }
-    }
-
 }
 
 void MainWindow::on_startButton_clicked()
 {
     ui->startButton->close();
     ui->wario_gif->close();
-    QTimer *time_ = new QTimer(this);
     connect(time_,&QTimer::timeout,this,&MainWindow::ShowCountdownTimerSlot);
     time_->start(1000);
-    this->Games();
+    if(lives_ != 0){
+      this->Games();
+    }
+
 }
 
 void MainWindow::PhasePassed(){
+    ui->correct_label->setVisible(true);
     GameManagement *board = new GameManagement();
     QMediaPlayer * sound = new QMediaPlayer();
     QMediaPlayer * sound2 = new QMediaPlayer();
     QMediaPlayer * sound3 = new QMediaPlayer();
-    sound->setMedia(QUrl("qrc:/assets/sound/Correct/win1.wav"));
+    //sound->setMedia(QUrl("qrc:/assets/sound/Correct/win1.wav"));
     sound2->setMedia(QUrl("qrc:/assets/sound/Correct/correct.wav"));
     sound3->setMedia(QUrl("qrc:/assets/sound/Correct/cheering.wav"));
     sound->play();
     sound2->play();
     sound3->play();
     board->SetScore(1);
-    std::string score = "Score: "+ std::to_string(board->GetScore());
-    QString qscore(score.c_str());
+    qDebug() << board->GetLives();
+    score_ = "Score: "+ std::to_string(board->GetScore());
+    QString qscore(score_.c_str());
     ui->score_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
     ui->score_label->setText(qscore);
+    ui->continue_button->setVisible(true);
+    time_->stop();
 }
 
 void MainWindow::PhaseFailed(){
+    scene_->clear();
+    managementScene_->clear();
+    GameManagement *board = new GameManagement();
+    managementScene_->addItem(board);
+    board->SetLife(-1);
+    lives_ = board->GetLives();
+    qDebug() << lives_;
+    ui->prompt_label->setVisible(true);
+    ui->incorrect_label->setVisible(true);
+    ui->continue_button->setVisible(true);
     QMediaPlayer * sound = new QMediaPlayer();
     QMediaPlayer * sound2 = new QMediaPlayer();
     QMediaPlayer * sound3 = new QMediaPlayer();
@@ -196,18 +181,6 @@ void MainWindow::PhaseFailed(){
     sound->play();
     sound2->play();
     sound3->play();
-}
-
-void MainWindow::PatienceGame(){
-    scene_->clear();
-    managementScene_->clear();
-    GameManagement *board = new GameManagement();
-    Patience *patience_game = new Patience(width_,height_);
-
-    connect(patience_game, &Patience::LostTheMiniGame, this, &MainWindow::PatienceSelectedSlot);
-
-    scene_->addItem(patience_game);
-    managementScene_->addItem(board);
     if (lives_ == 1){
         Life *life1 = board->GetLife1();
         managementScene_->addItem(life1);
@@ -216,40 +189,111 @@ void MainWindow::PatienceGame(){
         managementScene_->addItem(life1);
         Life *life2 = board->GetLife2();
         managementScene_->addItem(life2);
+    }else{
+        ShowScore();
     }
-        beat_ = true;
+    time_->stop();
+
+}
+
+void MainWindow::PatienceGame(){
+    scene_->clear();
+    Patience *patience_game = new Patience(width_,height_);
+    std::string prompt = "Patience.... ";
+    QString qprompt(prompt.c_str());
+    ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->prompt_label->setVisible(true);
+    ui->prompt_label->setText(qprompt);
+    connect(patience_game, &Patience::LostTheMiniGame, this, &MainWindow::PatienceSelectedSlot);
+    scene_->addItem(patience_game);
+    beat_ = true;
 }
 
 void MainWindow::PatienceSelectedSlot(Patience * p){
     scene_->clear();
-    managementScene_->clear();
-    GameManagement *board = new GameManagement();
+    std::string prompt = "You Weren't Patient....";
+    QString qprompt(prompt.c_str());
+    ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->prompt_label->setVisible(true);
+    ui->prompt_label->setText(qprompt);
     QImage *img = new QImage(":/assets/img/cryguy.jpg");
     *img = img->scaled(width_,height_);
     QBrush bg_brush(*img);
     scene_ ->setBackgroundBrush(bg_brush);
-    board->SetLife(-1);
-    lives_ = board->GetLives();
-
-    //Need to add the if lives_==0
-    if (lives_ == 1){
-        Life *life1 = board->GetLife1();
-        managementScene_->addItem(life1);
-    }
     beat_ = false;
+}
+
+void MainWindow::WashGame(){
+    scene_->clear();
+    Wash *wash_game = new Wash(width_,height_);
+    scene_->addItem(wash_game);
+    ui->handwashing_gif->setVisible(true);
+    ui->handwashing_gif->setStyleSheet("background-color:rgba(213,240,172,100%)");
+    RandomHelper();
+    QMovie *hands_washing = new QMovie(":/assets/img/handwashing.gif");
+    ui->handwashing_gif->setMovie(hands_washing);
+    hands_washing->start();
+
+    std::string prompt = "CLICK! Wash Away The Germs!";
+    QString qprompt(prompt.c_str());
+    ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->prompt_label->setVisible(true);
+    ui->prompt_label->setText(qprompt);
+    connect(wash_game, &Wash::WashSelected, this, &MainWindow::WashSelectedSlot);
+}
+
+void MainWindow::RandomHelper(){
+    amount_ = qrand() % 20 + 10;
+}
+
+void MainWindow::WashSelectedSlot(Wash * w){
+    if (amount_ > 0){
+        QMediaPlayer * sound = new QMediaPlayer();
+        sound->setMedia(QUrl("qrc:/assets/sound/wash hand minigame/water.wav"));
+        sound->play();
+        beat_ = false;
+    }else{
+      beat_ = true;
+    }
+    qDebug() << amount_;
+    amount_--;
+}
+
+void MainWindow::MainMenu(){
+    //creating the game management
+    GameManagement *board = new GameManagement();
+    QMovie *wario_dance = new QMovie(":/assets/img/wario_dancing.gif");
+    ui->wario_gif->setMovie(wario_dance);
+    wario_dance->start();
+    qsrand(static_cast<unsigned>(QTime::currentTime().msec()));
+
+    QImage *img = new QImage(":/assets/img/gamemanagement_background.jpeg");
+    QBrush bg_brush(*img);
+    managementScene_ ->setBackgroundBrush(bg_brush);
+
+    //Game management Overhead Labels
+    score_ = "Score: "+ std::to_string(board->GetScore());
+    QString qscore(score_.c_str());
+    ui->score_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->time_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->life_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+    ui->score_label->setText(qscore);
+    ui->handwashing_gif->setVisible(false);
+    ui->prompt_label->setVisible(false);
+    ui->correct_label->setVisible(false);
+    ui->incorrect_label->setVisible(false);
+    ui->continue_button->setVisible(false);
+    Life *life1 = board->GetLife1();
+    managementScene_->addItem(life1);
+    Life *life2 = board->GetLife2();
+    managementScene_->addItem(life2);
+    lives_ = board->GetLives();
 }
 
 void MainWindow::DisinfectGame(){
     scene_->clear();
-    managementScene_->clear();
-    GameManagement *board = new GameManagement();
     Disinfect *disinfect = new Disinfect(width_, height_);
     connect(disinfect, &Disinfect::LostTheMiniGame, this, &MainWindow::DisinfectGameSlot);
-
-//    QImage * background= disinfect->get_background();
-//    //* background= background->scaled(width_, height_);
-//    QBrush bg_brush(* (background));
-//    scene_ ->setBackgroundBrush(bg_brush);
     scene_->addItem(disinfect);
     std::vector<Corona *> cells= disinfect->get_cells();
     for(uint i=0; i< cells.size(); i++){
@@ -258,30 +302,31 @@ void MainWindow::DisinfectGame(){
 
     }
     corona_num_=cells.size();
-    // Add the UI
-    managementScene_->addItem(board);
-    if (lives_ == 1){
-        Life *life1 = board->GetLife1();
-        managementScene_->addItem(life1);
-    }else if(lives_ == 2){
-        Life *life1 = board->GetLife1();
-        managementScene_->addItem(life1);
-        Life *life2 = board->GetLife2();
-        managementScene_->addItem(life2);
-    }
 }
 
 void MainWindow::DisinfectGameSlot(Disinfect * d){
 
-    qDebug() <<"corona_num is"<<corona_num_;
     if (corona_num_ == 0){
+        std::string prompt = "All Viruses Cleansed!";
+        QString qprompt(prompt.c_str());
+        ui->prompt_label->setStyleSheet("background-color:rgba(0,0,0,0%)");
+        ui->prompt_label->setVisible(true);
+        ui->prompt_label->setText(qprompt);
         beat_=true;
     }
     else{
         beat_=false;
     }
+}
 
+void MainWindow::on_continue_button_clicked()
+{
+    ui->continue_button->close();
+    time_->start(1000);
+    Games();
+}
 
+void MainWindow::ShowScore(){
 
 }
 

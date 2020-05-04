@@ -27,7 +27,9 @@ private slots:
     // default slot that reacts to random button being clicked
     void CoronaSelectedSlot(Corona * c);
     void PatienceSelectedSlot(Patience * p);
+    void WashSelectedSlot(Wash * w);
     void DisinfectGameSlot(Disinfect * d);
+
 
     void on_startButton_clicked();
 
@@ -43,6 +45,16 @@ private slots:
 
     void PatienceGame();
 
+    void WashGame();
+
+    void MainMenu();
+
+    void RandomHelper();
+
+    void on_continue_button_clicked();
+
+    void ShowScore();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene_;
@@ -50,8 +62,11 @@ private:
     int height_;
     int width_;
     int repeat_ = 5;
+    int amount_;
     int lives_;
     bool beat_;
     int corona_num_=0;
+    std::string score_;
+    QTimer *time_ = new QTimer(this);
 };
 #endif // MAINWINDOW_H

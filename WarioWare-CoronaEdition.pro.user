@@ -297,7 +297,11 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
+<<<<<<< HEAD
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
+=======
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/aali7075/HW5/build-WarioWare-CoronaEdition-Desktop_Qt_5_12_7_GCC_64bit-Debug</value>
+>>>>>>> Aaron
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
