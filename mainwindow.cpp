@@ -141,7 +141,7 @@ void MainWindow::Games(){
 
     scene_->clear();
     int val= qrand() % 2;
-    val=0; //testing purposes only
+    val=2; //testing purposes only
     switch(val){
         case 0 : {//disinfect game
             DisinfectGame();
@@ -151,6 +151,9 @@ void MainWindow::Games(){
             PatienceGame();
             break;
         }
+    case 2:{
+        CountGame();
+    }
     }
 
 }
@@ -278,6 +281,43 @@ void MainWindow::DisinfectGameSlot(Disinfect * d){
         beat_=false;
     }
 
+
+
+}
+
+void MainWindow::CountGame(){
+    scene_->clear();
+    managementScene_->clear();
+    GameManagement *board = new GameManagement();
+    CountVirus *count_virus = new CountVirus(width_, height_);
+    //connect(disinfect, &Disinfect::LostTheMiniGame, this, &MainWindow::DisinfectGameSlot);
+
+//    QImage * background= disinfect->get_background();
+//    //* background= background->scaled(width_, height_);
+//    QBrush bg_brush(* (background));
+//    scene_ ->setBackgroundBrush(bg_brush);
+    //QPixmap background= count_virus->get_background();
+    scene_->addItem(count_virus);
+    count_virus->populate(width_,height_);
+    std::vector<Corona *> cells= count_virus->get_cells();
+    for(uint i=0; i< cells.size(); i++){
+        scene_->addItem(cells[i]);
+        connect(cells[i], &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
+
+    }
+    corona_num_=cells.size();
+    // Add the UI
+    qDebug()<<"corona_num is "<<corona_num_;
+    managementScene_->addItem(board);
+    if (lives_ == 1){
+        Life *life1 = board->GetLife1();
+        managementScene_->addItem(life1);
+    }else if(lives_ == 2){
+        Life *life1 = board->GetLife1();
+        managementScene_->addItem(life1);
+        Life *life2 = board->GetLife2();
+        managementScene_->addItem(life2);
+    }
 
 
 }

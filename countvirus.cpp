@@ -1,14 +1,11 @@
 #include "countvirus.h"
-#include "ui_countvirus.h"
 
-CountVirus::CountVirus(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::CountVirus)
-{
-    ui->setupUi(this);
-}
-
-CountVirus::~CountVirus()
-{
-    delete ui;
+void CountVirus::populate(int width, int height){
+    cells_.clear();
+    int value=(qrand()%5)+8; //value will always display at least 8 and go to 12
+    for(int i=0; i<value; i++){
+        int cell_w= qrand()%(width-100);
+        int cell_h= qrand()%(height-100);
+        cells_.push_back(new Corona(cell_w,cell_h));
+    }
 }

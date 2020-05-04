@@ -1,22 +1,41 @@
 #ifndef COUNTVIRUS_H
 #define COUNTVIRUS_H
 
-#include <QMainWindow>
+#include <QGraphicsPixmapItem>
+#include <QPixmap>
+#include <QObject>
+#include <QGraphicsItem>
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
+#include <iostream>
+#include <QtWidgets>
+#include <QTime>
+#include <QTimer>
+#include <QMovie>
+#include <QMediaPlayer>
 
-namespace Ui {
-class CountVirus;
-}
+#include "corona.h"
+#include "disinfect.h"
 
-class CountVirus : public QMainWindow
+//Reptile(std::string sound):
+//Animal(sound + " rawr!")
+//{}
+
+class CountVirus: public Disinfect
 {
     Q_OBJECT
 
 public:
-    explicit CountVirus(QWidget *parent = nullptr);
-    ~CountVirus();
+    CountVirus(int width, int height):
+    Disinfect(width, height)
+    {}
 
-private:
-    Ui::CountVirus *ui;
+    QPixmap get_background(){return background_;};
+
+    void populate(int width, int height) override;
+
+
 };
 
-#endif // COUNTVIRUS_H
+#endif // DISINFECT_H

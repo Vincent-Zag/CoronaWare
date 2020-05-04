@@ -30,18 +30,20 @@ public:
 
     std::vector<Corona *> get_cells() {return cells_;};
 
-    void populate(int width, int height); //This will be virtual
+    virtual void populate(int width, int height); //This will be virtual
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    QPixmap background_;
+    std::vector<Corona *> cells_;
 
 signals:
     void LostTheMiniGame(Disinfect * d);
 
 
-private:
-    QPixmap background_;
-    std::vector<Corona *> cells_;
+//private:
+//    QPixmap background_;
+//    std::vector<Corona *> cells_;
 };
 
 #endif // DISINFECT_H

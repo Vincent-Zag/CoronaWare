@@ -10,10 +10,11 @@ Disinfect::Disinfect(int width, int height)
     background_ = background_.scaled(width, height);
     setPos(0,0);
     setPixmap(background_);
-    this->populate(width,height);
+   this-> populate(width,height);
 }
 
 void Disinfect::populate(int width, int height){
+    cells_.clear();
     int value=(qrand()%4)+3;
     for(int i=0; i<value; i++){
         int cell_w= qrand()%(width-100);

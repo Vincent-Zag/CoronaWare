@@ -35,6 +35,8 @@ private slots:
 
     void DisinfectGame();
 
+    void CountGame();
+
     void PhasePassed();
 
     void PhaseFailed();
