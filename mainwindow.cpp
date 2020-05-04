@@ -123,6 +123,7 @@ void MainWindow::Games(){
             }
         case 2:{
                 CountGame();
+                break;
         }
         }
 }
@@ -134,7 +135,8 @@ void MainWindow::on_startButton_clicked()
     connect(time_,&QTimer::timeout,this,&MainWindow::ShowCountdownTimerSlot);
     time_->start(1000);
     if(lives_ != 0){
-      this->Games();
+      //this->Games();
+        this->ShowScore();
     }
 
 }
@@ -327,6 +329,59 @@ void MainWindow::on_continue_button_clicked()
 }
 
 void MainWindow::ShowScore(){
+    scene_->clear();
+    int score_temp=3;
+    Score * val;
+    if(score_temp>=10){
+        val= ScoreFactory::GetGood(width_, height_);
+        QMovie * dance= val->get_wariodance();
+        ui->wario_gif->setMovie(dance);
+        dance->start();
+        ui->wario_gif->show();
+        QColor color= val->get_color();
+        scene_->setBackgroundBrush(QBrush(color, Qt::SolidPattern));
+        QMediaPlayer * sound= val->get_sound();
+        sound->play();
+        QMediaPlayer * song= val->get_song();
+        song->play();
+
+    }
+    else if(score_temp<=3){
+        val= ScoreFactory::GetBad(width_, height_);
+        QColor color= val->get_color();
+        scene_->setBackgroundBrush(QBrush(color, Qt::SolidPattern));
+        QMediaPlayer * sound= val->get_sound();
+        sound->play();
+        QMediaPlayer * song= val->get_song();
+        song->play();
+        std::vector<Corona *> cells=val->get_cells();
+        for(uint i=0; i< cells.size(); i++){
+            scene_->addItem(cells[i]);
+            connect(cells[i], &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
+
+        }
+    }
+    else{
+        val= ScoreFactory::GetMeh(width_, height_);
+        QMovie * dance= val->get_wariodance();
+        ui->wario_gif->setMovie(dance);
+        dance->start();
+        QColor color= val->get_color();
+        scene_->setBackgroundBrush(QBrush(color, Qt::SolidPattern));
+        QMediaPlayer * sound= val->get_sound();
+        sound->play();
+        QMediaPlayer * song= val->get_song();
+        song->play();
+        std::vector<Corona *> cells=val->get_cells();
+        for(uint i=0; i< cells.size(); i++){
+            scene_->addItem(cells[i]);
+            connect(cells[i], &Corona::DeleteCell, this, &MainWindow::CoronaSelectedSlot);
+
+        }
+    }
+
+
+
 
 }
 

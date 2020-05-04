@@ -9,6 +9,7 @@
 #include "patience.h"
 #include "wash.h"
 #include "disinfect.h"
+#include "score.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
