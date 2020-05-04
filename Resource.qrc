@@ -34,5 +34,6 @@
         <file>assets/img/handwash_background.jpg</file>
         <file>assets/img/correct_icon.png</file>
         <file>assets/img/Incorrect_icon.png</file>
+        <file>assets/img/unhappywario.png</file>
     </qresource>
 </RCC>
